@@ -17,6 +17,7 @@ NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
 
 void NetworkManager::login(const QString &username, const QString &password)
 {
+    qDebug() << "Running with credentials:" << username << password;
     QUrl url("https://suap.ifba.edu.br/accounts/login/");
 
         // POST com o token CSRF e os dados de login

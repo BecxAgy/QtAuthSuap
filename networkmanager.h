@@ -4,10 +4,14 @@
 #include <QObject>
 #include <QNetworkAccessManager>
 #include <QNetworkCookieJar>
+#include <QQmlEngine>
 
 class NetworkManager : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
+    QML_SINGLETON
+
 public:
     explicit NetworkManager(QObject *parent = nullptr);
 

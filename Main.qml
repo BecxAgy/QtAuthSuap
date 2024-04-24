@@ -2,8 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Controls.Material
-//Como importar isso??
-//import ".manager" as Manager
+import QtAuthSuap
 
 ApplicationWindow {
     visible: true
@@ -46,9 +45,8 @@ ApplicationWindow {
         Button {
             text: "Login"
             onClicked: {
-                var networkManager = new Manager.NetworkManager();
-                networkManager.login(usernameField.text, passwordField.text);
-                print("deu bom??")
+                NetworkManager.login(usernameField.text, passwordField.text);
+                console.log("deu bom??")
             }
         }
     }
