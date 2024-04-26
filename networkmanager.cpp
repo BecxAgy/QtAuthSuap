@@ -27,6 +27,7 @@ void NetworkManager::login(const QString &username, const QString &password)
 
     reply = manager->get(request);
 
+    QEventLoop loop;
     QObject::connect(reply, &QNetworkReply::readyRead, [&](){
         //print
         qDebug() << reply->readAll();
@@ -39,11 +40,14 @@ void NetworkManager::login(const QString &username, const QString &password)
             qDebug() << "Error during request:" << reply->errorString();
         }
         reply->deleteLater(); // Clean up memory
+        loop.quit(); // Quit the event loop when finished
     });
 
-    QObject::connect(reply, QOverload<QNetworkReply::NetworkError>::of(&QNetworkReply::errorOccurred), [&](QNetworkReply::NetworkError code) {
+    QObject::connect(reply, static_cast<void(QNetworkReply::*)(QNetworkReply::NetworkError)>(&QNetworkReply::errorOccurred), [&](QNetworkReply::NetworkError code) {
         qDebug() << "Network error occurred:" << code;
         reply->deleteLater(); // Clean up memory
+        loop.quit(); // Quit the event loop in case of error
     });
-}
 
+    loop.exec(); // Start the event loop to wait for the reply
+}
