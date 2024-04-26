@@ -3,6 +3,8 @@
 
 int main(int argc, char *argv[])
 {
+    // Define o backend TLS que você deseja usar (por exemplo, OpenSSL)
+    qputenv("QT_SSL_DEFAULT_BACKEND", "openssl");
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
